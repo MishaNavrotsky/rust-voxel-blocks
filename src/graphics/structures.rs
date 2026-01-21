@@ -8,16 +8,20 @@ use winit::keyboard::KeyCode;
 #[derive(Clone, Copy, Pod, Zeroable, Default, Debug)]
 pub struct Globals {
     pub mouse_pos: Vec2,
+    pub resolution: [u32; 2],
     pub time_passed: f32,
     pub frame_time: f32,
     pub frame: u32,
-    pub _pad: [f32; 3],
+    pub _pad: [f32; 1],
 }
 
 #[repr(C, align(16))]
 #[derive(Clone, Copy, Pod, Zeroable, Default, Debug)]
 pub struct View {
+    pub proj_view_rev_z: Mat4,
+    pub inv_proj_view_rev_z: Mat4,
     pub proj_view: Mat4,
+    pub inv_proj_view: Mat4,
     pub camera_position: Vec3A,
 }
 

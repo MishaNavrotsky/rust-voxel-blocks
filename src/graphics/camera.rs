@@ -30,10 +30,18 @@ impl Camera {
         };
     }
     pub fn get_view(&self) -> View {
+        let proj_view_rev_z =
+            Mat4::perspective_infinite_reverse_rh(self.fov, self.aspect_ratio, 0.001)
+                * Mat4::from_rotation_translation(self.rotation, self.position).inverse();
+
+        let proj_view = Mat4::perspective_infinite_rh(self.fov, self.aspect_ratio, 0.001)
+            * Mat4::from_rotation_translation(self.rotation, self.position).inverse();
         View {
+            proj_view_rev_z,
+            inv_proj_view_rev_z: proj_view_rev_z.inverse(),
+            proj_view,
+            inv_proj_view: proj_view.inverse(),
             camera_position: self.position.into(),
-            proj_view: Mat4::perspective_infinite_reverse_rh(self.fov, self.aspect_ratio, 0.001)
-                * Mat4::from_rotation_translation(self.rotation, self.position).inverse(),
         }
     }
 

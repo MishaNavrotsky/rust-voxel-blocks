@@ -74,7 +74,10 @@ pub async fn create_graphics(window: Arc<Window>, proxy: EventLoopProxy<Graphics
 
         camera: Camera::new(width as f32 / height as f32),
         metadata: Metadata::new(),
-        globals: Default::default(),
+        globals: Globals {
+            resolution: [width, height],
+            ..Default::default()
+        },
         view: Default::default(),
 
         render_pass,
@@ -170,6 +173,8 @@ impl Graphics {
             aspect_ratio: self.surface_config.width as f32 / self.surface_config.height as f32,
             ..self.camera
         };
+
+        self.globals.resolution = [self.surface_config.width, self.surface_config.height];
 
         let (depth_texture, depth_texture_view) =
             create_depth_texture(&self.device, &self.surface_config);

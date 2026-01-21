@@ -64,7 +64,7 @@ impl RenderPass {
                 compilation_options: Default::default(),
             }),
             primitive: PrimitiveState {
-                cull_mode: Some(Face::Back),
+                cull_mode: None,
                 ..Default::default()
             },
             depth_stencil: Some(DepthStencilState {
